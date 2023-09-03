@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 
 class ExampleController extends Controller
 {
-    public function homepage(){
+    public function home(){
         //imagine we loaded data from database
         $ourname ='kalvis';
         $animals = ['cow', 'cat', 'dog'];
 
-        return view('homepage', ['allAnimals'=>$animals,'name'=>$ourname, 'catname' =>'Meavsalot']);
+        return view('home', ['allAnimals'=>$animals,'name'=>$ourname, 'catname' =>'Meavsalot']);
     }
 
     public function aboutPage(){

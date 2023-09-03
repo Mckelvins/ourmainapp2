@@ -21,11 +21,10 @@ Route::get('/', function () {
 */
 //    1fE3z%tsp*J7
 
-Route::get('/', [ExampleController::class, "welcome"]);
+Route::get('/home', [ExampleController::class, "home"]);
 
-Route::get('/about', [ExampleController::class, "aboutPage"]);
+//Route::get('/about', [ExampleController::class, "aboutPage"]);
 
-//Route::post('/register', [UserController::class, "register"]);
-//Route::post('/login', [UserController::class, 'login']);
-
+Route::post('/register', [UserController::class, "register"]);
+Route::post('/login', [UserController::class, 'login']);
 Route::get('/welcome', [ExampleController::class, "welcome"]);
