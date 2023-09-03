@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExampleController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
+//    1fE3z%tsp*J7
 
-Route::get('/', [ExampleController::class, "homepage"]);
+Route::get('/', [ExampleController::class, "welcome"]);
 
 Route::get('/about', [ExampleController::class, "aboutPage"]);
+
+//Route::post('/register', [UserController::class, "register"]);
+//Route::post('/login', [UserController::class, 'login']);
+
+Route::get('/welcome', [ExampleController::class, "welcome"]);
