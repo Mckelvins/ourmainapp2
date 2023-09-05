@@ -6,19 +6,16 @@ use Illuminate\Http\Request;
 
 class ExampleController extends Controller
 {
-    public function home(){
-        //imagine we loaded data from database
-        $ourname ='kalvis';
-        $animals = ['cow', 'cat', 'dog'];
+    public function homepage() {
+        // imagine we loaded data from the database
+        $ourName = 'Brad';
+        $animals = ['Meowsalot', 'Barksalot', 'Purrsloud'];
 
-        return view('home', ['allAnimals'=>$animals,'name'=>$ourname, 'catname' =>'Meavsalot']);
+        return view('homepage', ['allAnimals' => $animals, 'name' => $ourName, 'catname' => 'Meowsalot']);
     }
 
-    public function aboutPage(){
+    public function aboutPage() {
         return view('single-post');
     }
 
-    public function welcome(){
-        return view('welcome');
-    }
 }

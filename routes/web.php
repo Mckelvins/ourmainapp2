@@ -18,13 +18,17 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
+// Route::get('/welcome', [ExampleController::class, "welcome"]);
 */
 //    1fE3z%tsp*J7
 
 Route::get('/home', [ExampleController::class, "home"]);
+Route::get('/', [UserController::class, "showCorrectHomepage"]);
+Route::get('/about', [ExampleController::class, "aboutPage"]);
 
 //Route::get('/about', [ExampleController::class, "aboutPage"]);
 
 Route::post('/register', [UserController::class, "register"]);
 Route::post('/login', [UserController::class, 'login']);
-Route::get('/welcome', [ExampleController::class, "welcome"]);
+Route::post('/logout', [UserController::class, 'logout']);
+
