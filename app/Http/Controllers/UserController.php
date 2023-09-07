@@ -8,6 +8,14 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    //profile functionality, blogs
+
+    public function profile(User $user){
+
+        return view('profile-posts', ['username'=>$user->username, 'posts'=>$user->posts()->latest()->get(), 'postCount'=>$user->posts()->count()]);
+    }
+    // Login/logout functionality==================================
+
     public function logout(){
         auth()->logout();
         return redirect('/')->with('success','Success Logged out');
@@ -35,6 +43,7 @@ class UserController extends Controller
             return redirect('/')->with('failure','Invalid Loggin!');
         }
     }
+    // register functionality====================================
 
     public function register(Request $request) {
         $incomingFields = $request->validate([
