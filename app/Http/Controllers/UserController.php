@@ -5,21 +5,38 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
+
 
 class UserController extends Controller
 {
-    //profile functionality, blogs
+    public function storeAvatar(Request $request){
+        $request->validate([
+            'avatar' =>'required|image|max:3000'
+        ]);
 
-    public function profile(User $user){
+        $user=auth()->user();
 
-        return view('profile-posts', ['username'=>$user->username, 'posts'=>$user->posts()->latest()->get(), 'postCount'=>$user->posts()->count()]);
+        $filemane=$user->id . '-'. uniqid(). '.jpg';
+
+       $imgData= Image::make($request->file('avatar'))->fit(120)->encode('jpg');
+       Storage::put('public/avatars/'.$filename,$imgData)
+
+        //$request->file('avatar')->store('public/avatars');
+        //return 'heyv'; ->store('public/avatars'
     }
-    // Login/logout functionality==================================
+    public function showAvatarForm(){
+        return view('avatar-form');
+    }
 
-    public function logout(){
+    public function profile(User $user) {
+        return view('profile-posts', ['username' => $user->username, 'posts' => $user->posts()->latest()->get(), 'postCount' => $user->posts()->count()]);
+    }
+
+    public function logout() {
         auth()->logout();
-        return redirect('/')->with('success','Success Logged out');
-
+        return redirect('/')->with('success', 'You are now logged out.');
     }
 
     public function showCorrectHomepage() {
@@ -38,12 +55,11 @@ class UserController extends Controller
 
         if (auth()->attempt(['username' => $incomingFields['loginusername'], 'password' => $incomingFields['loginpassword']])) {
             $request->session()->regenerate();
-            return redirect('/')->with('success','Success Loggin!');
+            return redirect('/')->with('success', 'You have successfully logged in.');
         } else {
-            return redirect('/')->with('failure','Invalid Loggin!');
+            return redirect('/')->with('failure', 'Invalid login.');
         }
     }
-    // register functionality====================================
 
     public function register(Request $request) {
         $incomingFields = $request->validate([
@@ -54,9 +70,8 @@ class UserController extends Controller
 
         $incomingFields['password'] = bcrypt($incomingFields['password']);
 
-        $user= User::create($incomingFields);
+        $user = User::create($incomingFields);
         auth()->login($user);
-
-        return redirect('/')->with('success','Thank you for creating an acount! ');
+        return redirect('/')->with('success', 'Thank you for creating an account.');
     }
 }
